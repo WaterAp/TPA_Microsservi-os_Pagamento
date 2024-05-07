@@ -25,10 +25,10 @@ public class PaymentEntity implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	private String method;
 	private Date dueDate;
-	private float value;
+	private float amount;
 	private Date paidAt;
 	private int transactionId;
 	

@@ -20,7 +20,7 @@ public class PaymentDTO {
 	private int id;
 	private String method;
 	private Date dueDate;
-	private float value;
+	private float amount;
 	private Date paidAt;
 	private int transactionId;
 	
