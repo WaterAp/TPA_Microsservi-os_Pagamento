@@ -10,4 +10,5 @@ class PaymentApplicationTests {
 	void contextLoads() {
 	}
 
+
 }
