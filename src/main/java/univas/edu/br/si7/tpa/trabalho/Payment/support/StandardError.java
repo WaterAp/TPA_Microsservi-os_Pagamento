@@ -1,4 +1,4 @@
-package univas.edu.br.si7.tpa.tabalho.Payment.support;
+package univas.edu.br.si7.tpa.trabalho.Payment.support;
 
 import java.util.Date;
 

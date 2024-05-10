@@ -1,4 +1,4 @@
-package univas.edu.br.si7.tpa.tabalho.Payment.service;
+package univas.edu.br.si7.tpa.trabalho.Payment.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,12 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import univas.edu.br.si7.tpa.tabalho.Payment.dtos.PaymentDTO;
-import univas.edu.br.si7.tpa.tabalho.Payment.entities.PaymentEntity;
-import univas.edu.br.si7.tpa.tabalho.Payment.repositories.PaymentRepository;
-import univas.edu.br.si7.tpa.tabalho.Payment.support.ObjectNotFoundException;
-import univas.edu.br.si7.tpa.tabalho.Payment.support.PaymentException;
-import univas.edu.br.si7.tpa.tabalho.Payment.util.PaymentEntityConverter;
+import univas.edu.br.si7.tpa.trabalho.Payment.dtos.PaymentDTO;
+import univas.edu.br.si7.tpa.trabalho.Payment.entities.PaymentEntity;
+import univas.edu.br.si7.tpa.trabalho.Payment.repositories.PaymentRepository;
+import univas.edu.br.si7.tpa.trabalho.Payment.support.ObjectNotFoundException;
+import univas.edu.br.si7.tpa.trabalho.Payment.support.PaymentException;
+import univas.edu.br.si7.tpa.trabalho.Payment.util.PaymentEntityConverter;
 
 @Service
 public class PaymentService {

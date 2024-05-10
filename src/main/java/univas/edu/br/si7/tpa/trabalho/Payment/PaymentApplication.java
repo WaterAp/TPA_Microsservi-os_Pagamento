@@ -1,4 +1,4 @@
-package univas.edu.br.si7.tpa.tabalho.Payment;
+package univas.edu.br.si7.tpa.trabalho.Payment;
 
 import java.util.Date;
 import java.util.List;
@@ -8,8 +8,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import univas.edu.br.si7.tpa.tabalho.Payment.entities.PaymentEntity;
-import univas.edu.br.si7.tpa.tabalho.Payment.repositories.PaymentRepository;
+import univas.edu.br.si7.tpa.trabalho.Payment.entities.PaymentEntity;
+import univas.edu.br.si7.tpa.trabalho.Payment.repositories.PaymentRepository;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -27,8 +27,8 @@ public class PaymentApplication implements CommandLineRunner {
 	
 	@Override
 	public void run(String... args) throws Exception {
-		/*PaymentEntity p1 = new PaymentEntity(1, "Cartão", new Date(), 7.30f, null, 1);
-		repo.save(p1); */
+		PaymentEntity p1 = new PaymentEntity(1, "Cartão", new Date(), 7.30f, null, 1);
+		repo.save(p1);
 		
 		
 		List<PaymentEntity> produtos = repo.findAll();

@@ -1,4 +1,4 @@
-package univas.edu.br.si7.tpa.tabalho.Payment.entities;
+package univas.edu.br.si7.tpa.trabalho.Payment.entities;
 
 import java.io.Serializable;
 import java.util.Date;

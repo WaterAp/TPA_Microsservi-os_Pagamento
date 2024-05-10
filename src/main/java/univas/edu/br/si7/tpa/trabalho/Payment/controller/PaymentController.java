@@ -1,4 +1,4 @@
-package univas.edu.br.si7.tpa.tabalho.Payment.controller;
+package univas.edu.br.si7.tpa.trabalho.Payment.controller;
 
 import java.util.List;
 
@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import univas.edu.br.si7.tpa.tabalho.Payment.dtos.PaymentDTO;
-import univas.edu.br.si7.tpa.tabalho.Payment.entities.PaymentEntity;
-import univas.edu.br.si7.tpa.tabalho.Payment.service.PaymentService;
-import univas.edu.br.si7.tpa.tabalho.Payment.util.PaymentEntityConverter;
+import univas.edu.br.si7.tpa.trabalho.Payment.dtos.PaymentDTO;
+import univas.edu.br.si7.tpa.trabalho.Payment.entities.PaymentEntity;
+import univas.edu.br.si7.tpa.trabalho.Payment.service.PaymentService;
+import univas.edu.br.si7.tpa.trabalho.Payment.util.PaymentEntityConverter;
 
 
 @RestController

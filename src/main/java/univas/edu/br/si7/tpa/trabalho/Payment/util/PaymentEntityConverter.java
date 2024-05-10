@@ -1,10 +1,10 @@
-package univas.edu.br.si7.tpa.tabalho.Payment.util;
+package univas.edu.br.si7.tpa.trabalho.Payment.util;
 
 
 import org.springframework.stereotype.Component;
 
-import univas.edu.br.si7.tpa.tabalho.Payment.dtos.PaymentDTO;
-import univas.edu.br.si7.tpa.tabalho.Payment.entities.PaymentEntity;
+import univas.edu.br.si7.tpa.trabalho.Payment.dtos.PaymentDTO;
+import univas.edu.br.si7.tpa.trabalho.Payment.entities.PaymentEntity;
 
 @Component
 public class PaymentEntityConverter {
