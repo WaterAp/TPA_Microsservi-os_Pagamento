@@ -11,10 +11,10 @@ import org.mockito.Mockito;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-import univas.edu.br.si7.tpa.tabalho.Payment.dtos.PaymentDTO;
-import univas.edu.br.si7.tpa.tabalho.Payment.entities.PaymentEntity;
-import univas.edu.br.si7.tpa.tabalho.Payment.repositories.PaymentRepository;
-import univas.edu.br.si7.tpa.tabalho.Payment.service.PaymentService;
+import univas.edu.br.si7.tpa.trabalho.Payment.dtos.PaymentDTO;
+import univas.edu.br.si7.tpa.trabalho.Payment.entities.PaymentEntity;
+import univas.edu.br.si7.tpa.trabalho.Payment.repositories.PaymentRepository;
+import univas.edu.br.si7.tpa.trabalho.Payment.service.PaymentService;
 
 public class PaymentServiceTest {
 
