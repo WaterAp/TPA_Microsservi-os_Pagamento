@@ -8,6 +8,6 @@ import univas.edu.br.si7.tpa.trabalho.Payment.entities.PaymentEntity;
 
 //@Repository
 public interface PaymentRepository extends MongoRepository<PaymentEntity, Integer>{
-	Optional<PaymentEntity> findAll (int number);
+	Optional<PaymentEntity> findById (int number);
 	
 }
