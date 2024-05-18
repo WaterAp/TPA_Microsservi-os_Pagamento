@@ -1,63 +1,84 @@
 package univas.edu.br.si7.tpa.tabalho.Payment;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import static org.mockito.ArgumentMatchers.any;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
 import java.util.Optional;
-
-import org.junit.jupiter.api.*;
-import org.mockito.Mockito;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-
 import univas.edu.br.si7.tpa.trabalho.Payment.dtos.PaymentDTO;
 import univas.edu.br.si7.tpa.trabalho.Payment.entities.PaymentEntity;
+import univas.edu.br.si7.tpa.trabalho.Payment.enums.PaymentStatus;
 import univas.edu.br.si7.tpa.trabalho.Payment.repositories.PaymentRepository;
 import univas.edu.br.si7.tpa.trabalho.Payment.service.PaymentService;
+import univas.edu.br.si7.tpa.trabalho.Payment.util.PaymentEntityConverter;
 
 public class PaymentServiceTest {
 
-	private static PaymentService service;
-	private static PaymentRepository repoMock;
+    private static PaymentService service;
+    private static PaymentRepository repoMock;
+    private static PaymentEntityConverter converterMock;
 
-	@BeforeAll
-	public static void setup() {
-		repoMock = Mockito.mock(PaymentRepository.class);
-		service = new PaymentService(repoMock);
-	}
 
-	@Test
-	void testGetAllPayments() {
+    @BeforeAll
+    public static void setup() {
+        repoMock = Mockito.mock(PaymentRepository.class);
+        converterMock = Mockito.mock(PaymentEntityConverter.class);
+        service = new PaymentService(repoMock, converterMock);  // Pass the mocked converter here
+    }
 
-		List<PaymentEntity> Payments = List.of(
-				new PaymentEntity()
-				);
-		Mockito.when(repoMock.findAll()).thenReturn(Payments);
+    @Test
+    void testGetAllPayments() {
+        List<PaymentEntity> payments = List.of(new PaymentEntity(1, "Cartão", new java.util.Date(), 7.30f, null, 1, true, PaymentStatus.PENDING));
+        Mockito.when(repoMock.findAllByActiveTrue()).thenReturn(payments);
 
-		List<PaymentDTO> allPayments = service.findAll();
+        List<PaymentDTO> allPayments = service.findAll();
 
-		Mockito.verify(repoMock, Mockito.times(1)).findAll();
+        Mockito.verify(repoMock, Mockito.times(1)).findAllByActiveTrue();
+        assertNotNull(allPayments);
+        assertEquals(1, allPayments.size());
+    }
 
-		assertNotNull(allPayments);
-		assertEquals(1, allPayments.size());
-	}
+    @Test
+    void testGetPaymentById() {
+        PaymentEntity p1 = new PaymentEntity(1, "Cartão", new java.util.Date(), 7.30f, null, 1, true, PaymentStatus.PENDING);
+        Mockito.when(repoMock.findByIdAndActiveTrue(1)).thenReturn(Optional.of(p1));
 
-	@Test
-	
-	void testGetPaymentById() {
-	    PaymentEntity p1 = new PaymentEntity();
-	    p1.setId(1);
-	    Mockito.when(repoMock.findById(1)).thenReturn(Optional.of(p1));
-	    
-	    PaymentEntity payment = service.findById(1); 
-	    assertNotNull(payment);
-	    assertEquals(1, payment.getId());
-	}
+        PaymentEntity payment = service.findById(1);
 
-	@Test
-	public void testFindByActive() {
-		fail("Not yet implemented");
-	}
+        assertNotNull(payment);
+        assertEquals(1, payment.getId());
+    }
+
+    @Test
+    void testCreatePayment() {
+        PaymentDTO dto = new PaymentDTO(0, "Cartão", new java.util.Date(), 7.30f, null, 1, true, PaymentStatus.PENDING);
+        PaymentEntity entity = new PaymentEntity(1, "Cartão", new java.util.Date(), 7.30f, null, 1, true, PaymentStatus.PENDING);
+        Mockito.when(converterMock.toEntity(any(PaymentDTO.class))).thenReturn(entity);
+        Mockito.when(repoMock.save(any(PaymentEntity.class))).thenReturn(entity);
+
+        PaymentDTO result = service.createPayment(dto);
+
+        assertNotNull(result);
+        assertEquals(1, result.getId());
+    }
+
+    @Test
+    void testUpdatePayment() {
+        PaymentDTO dto = new PaymentDTO(1, "Dinheiro", new java.util.Date(), 15.0f, null, 1, true, PaymentStatus.PAID);
+        PaymentEntity existing = new PaymentEntity(1, "Cartão", new java.util.Date(), 7.30f, null, 1, true, PaymentStatus.PENDING);
+        PaymentEntity updated = new PaymentEntity(1, "Dinheiro", new java.util.Date(), 15.0f, null, 1, true, PaymentStatus.PAID);
+
+        Mockito.when(repoMock.findByIdAndActiveTrue(1)).thenReturn(Optional.of(existing));
+        Mockito.when(repoMock.save(any(PaymentEntity.class))).thenReturn(updated);
+
+        service.updatePayment(dto, 1);
+
+        Mockito.verify(repoMock).save(existing);  // Verify that the existing object was saved after the update
+        assertEquals(PaymentStatus.PAID, existing.getStatus());
+        assertEquals(15.0f, existing.getAmount(), 0.01);
+    }
 }
-

@@ -29,8 +29,9 @@ public class PaymentService {
 	private PaymentEntityConverter converter;
 	
 	@Autowired
-	public PaymentService(PaymentRepository repo) {
+	public PaymentService(PaymentRepository repo, PaymentEntityConverter converter) {
 		this.repo = repo;
+		this.converter = converter;
 	}
 	
 	
