@@ -12,13 +12,13 @@ public class PaymentEntityConverter {
 		return new PaymentDTO(
 				payment.getId(), payment.getMethod(), 
 				payment.getDueDate(), payment.getAmount(), payment.getPaidAt(),
-				payment.getTransactionId());
+				payment.getTransactionId(), payment.isActive(), payment.getStatus());
 	}
 	
 	public PaymentEntity toEntity(PaymentDTO paym) {
 		System.out.println("toEntity: " + paym);
 		return new PaymentEntity(paym.getId(), paym.getMethod(), 
 				paym.getDueDate(), paym.getAmount(), paym.getPaidAt(),
-				paym.getTransactionId());
+				paym.getTransactionId(), paym.getActive(), paym.getStatus());
 	}
 }

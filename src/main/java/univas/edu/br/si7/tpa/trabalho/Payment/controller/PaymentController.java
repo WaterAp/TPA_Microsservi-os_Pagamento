@@ -13,11 +13,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import java.net.URI;
+
 
 import univas.edu.br.si7.tpa.trabalho.Payment.dtos.PaymentDTO;
 import univas.edu.br.si7.tpa.trabalho.Payment.entities.PaymentEntity;
+import univas.edu.br.si7.tpa.trabalho.Payment.enums.PaymentStatus;
 import univas.edu.br.si7.tpa.trabalho.Payment.service.PaymentService;
 import univas.edu.br.si7.tpa.trabalho.Payment.util.PaymentEntityConverter;
+import univas.edu.br.si7.tpa.trabalho.Payment.validator.PaymentValidator;
 
 
 @RestController
@@ -33,25 +38,36 @@ public class PaymentController {
 		return service.findAll();
 	}
 	
-	@GetMapping("/{code}")
+	@GetMapping("/{id}")
 	public PaymentDTO getPaymentById(@PathVariable Integer id) {
 		PaymentEntity entity = service.findById(id);
 		return PaymentEntityConverter.toDTO(entity);
 	}
 	
 	@PostMapping("")
-	@ResponseStatus(HttpStatus.CREATED)
-	public void createProduct(@RequestBody PaymentDTO payment) {
-		service.createPayment(payment);
+	public ResponseEntity<?> createPayment(@RequestBody PaymentDTO payment) {
+		if (!PaymentValidator.validatePayment(payment)) {
+            return ResponseEntity.badRequest().body("Invalid payment data");
+        }
+		payment.setPaidAt(null);
+		payment.setActive(true);
+		payment.setStatus(PaymentStatus.PENDING);
+	    PaymentDTO savedPayment = service.createPayment(payment);
+	    return ResponseEntity.created(URI.create("/api/payment/" + savedPayment.getId())).body(savedPayment);
+	}
+
+	
+	@PutMapping("/{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)  
+	public ResponseEntity<?> updatePayment(@RequestBody PaymentDTO dto, @PathVariable Integer id) {
+	    if (!PaymentValidator.validatePaymentStatusUpdateCanceled(dto)) {
+	        return ResponseEntity.badRequest().body("You must use a delete route to cancel a payment");
+	    }
+	    service.updatePayment(dto, id);
+	    return ResponseEntity.noContent().build(); 
 	}
 	
-	@PutMapping("/{code}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void updatePayment(@RequestBody PaymentDTO dto, @PathVariable Integer id) {
-		service.updatePayment(dto, id);
-	}
-	
-	@DeleteMapping("/{code}")
+	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deletePayment(@PathVariable Integer id) {
 		service.deletePayment(id);

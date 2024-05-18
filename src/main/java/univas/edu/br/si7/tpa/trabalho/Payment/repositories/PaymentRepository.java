@@ -1,13 +1,14 @@
 package univas.edu.br.si7.tpa.trabalho.Payment.repositories;
 
-import java.util.Optional;
+import java.util.List;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import univas.edu.br.si7.tpa.trabalho.Payment.entities.PaymentEntity;
 
-//@Repository
-public interface PaymentRepository extends MongoRepository<PaymentEntity, Integer>{
-	Optional<PaymentEntity> findById (int number);
+@Repository
+public interface PaymentRepository extends JpaRepository<PaymentEntity, Integer>{
+	public List<PaymentEntity> findAll();
 	
 }

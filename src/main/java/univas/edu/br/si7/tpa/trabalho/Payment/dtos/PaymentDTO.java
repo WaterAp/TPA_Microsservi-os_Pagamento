@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import univas.edu.br.si7.tpa.trabalho.Payment.enums.PaymentStatus;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,6 +24,8 @@ public class PaymentDTO {
 	private float amount;
 	private Date paidAt;
 	private int transactionId;
+	private Boolean active;
+	private PaymentStatus status;
 	
 	
 }
