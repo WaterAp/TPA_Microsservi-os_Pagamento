@@ -63,6 +63,9 @@ public class PaymentController {
 	    if (!PaymentValidator.validatePaymentStatusUpdateCanceled(dto)) {
 	        return ResponseEntity.badRequest().body("You must use a delete route to cancel a payment");
 	    }
+	    if (PaymentValidator.validatePaymentStatusUpdateIsPaidOrCanceled(dto)) {
+	        return ResponseEntity.badRequest().body("Payment status is not pending and cannot be updated in this context.");
+	    }
 	    service.updatePayment(dto, id);
 	    return ResponseEntity.noContent().build(); 
 	}

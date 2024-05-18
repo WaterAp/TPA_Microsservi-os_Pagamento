@@ -7,6 +7,15 @@ import java.util.Date;
 
 public class PaymentValidator {
 	
+	public static boolean validatePaymentStatusUpdateIsPaidOrCanceled(PaymentDTO payment) {
+	    return payment.getStatus() != PaymentStatus.CANCELED && payment.getStatus() != PaymentStatus.PAID && payment.getStatus() != null;
+	}
+	
+	public static boolean validatePaymentStatusUpdateIsPaid(PaymentDTO payment) {
+	    return payment.getStatus() ==  PaymentStatus.PAID && payment.getStatus() != null;
+	}
+
+	
 	public static boolean validatePaymentStatusUpdateCanceled(PaymentDTO payment) {
 	    return payment.getStatus() != PaymentStatus.CANCELED;
 	}
